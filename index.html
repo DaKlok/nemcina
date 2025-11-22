@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nemčina Kvízy | Material 3 Expressive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        /* =========================================
+           MATERIAL DESIGN 3 TOKEN VARIABLES (DARK)
+           ========================================= */
+        :root {
+            --md-sys-color-background: #141218;
+            --md-sys-color-surface: #141218;
+            --md-sys-color-surface-container: rgba(29, 27, 32, 0.85); 
+            --md-sys-color-surface-container-high: #2B2930;
+            
+            /* Primary Tones */
+            --md-sys-color-primary: #D0BCFF;
+            --md-sys-color-on-primary: #381E72;
+            --md-sys-color-primary-container: #4F378B;
+
+            /* Secondary Tones */
+            --md-sys-color-secondary: #CCC2DC;
+            --md-sys-color-secondary-container: #4A4458;
+            --md-sys-color-on-secondary-container: #E8DEF8;
+
+            /* Tertiary Tones */
+            --md-sys-color-tertiary: #EFB8C8;
+            --md-sys-color-tertiary-container: #633B48;
+            --md-sys-color-on-tertiary-container: #FFD8E4;
+
+            /* Error & Success */
+            --md-sys-color-error: #F2B8B5;
+            --md-sys-color-error-container: #8C1D18;
+            --md-sys-color-success: #B5F2B9;
+
+            /* Text & Outlines */
+            --md-sys-color-on-surface: #E6E1E5;
+            --md-sys-color-on-surface-variant: #CAC4D0;
+            --md-sys-color-outline: #938F99;
+            --md-sys-color-outline-variant: #49454F;
+
+            /* Shapes */
+            --md-sys-shape-corner-medium: 12px;
+            --md-sys-shape-corner-large: 28px;
+            --md-sys-shape-corner-full: 50px; /* Zmenšené z 9999px pre lepšiu animáciu */
+            
+            /* Elevations */
+            --md-sys-elevation-1: 0px 1px 3px 1px rgba(0,0,0,0.15), 0px 1px 2px 0px rgba(0,0,0,0.3);
+            --md-sys-elevation-2: 0px 2px 6px 2px rgba(0,0,0,0.15), 0px 1px 2px 0px rgba(0,0,0,0.3);
+            --md-sys-elevation-hover: 0px 4px 8px 3px rgba(0,0,0,0.2), 0px 1px 3px 0px rgba(0,0,0,0.4);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-surface);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           EXPRESSIVE BACKGROUND SHAPES
+           ========================================= */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            width: 60vmax;
+            height: 60vmax;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.15;
+            animation: blobMove 20s infinite alternate ease-in-out;
+        }
+
+        body::before {
+            background: var(--md-sys-color-primary-container);
+            top: -20%;
+            left: -20%;
+        }
+
+        body::after {
+            background: var(--md-sys-color-tertiary-container);
+            bottom: -20%;
+            right: -20%;
+            animation-delay: -10s;
+            animation-duration: 25s;
+        }
+
+        @keyframes blobMove {
+            0% { transform: translate(0, 0) scale(1); border-radius: 40% 60% 70% 30% / 50% 30% 70% 50%; }
+            100% { transform: translate(10%, 5%) scale(1.1); border-radius: 60% 40% 30% 70% / 30% 50% 50% 70%; }
+        }
+
+        /* =========================================
+           MAIN CONTAINER
+           ========================================= */
+        #container {
+            background-color: var(--md-sys-color-surface-container);
+            backdrop-filter: blur(10px);
+            padding: 40px 32px;
+            border-radius: var(--md-sys-shape-corner-large);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            box-sizing: border-box;
+            box-shadow: var(--md-sys-elevation-1);
+        }
+
+        /* =========================================
+           TYPOGRAPHY & HEADER
+           ========================================= */
+        header { margin-bottom: 32px; }
+        
+        #streakDisplay {
+            font-size: 0.8rem;
+            color: var(--md-sys-color-primary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 400;
+            color: var(--md-sys-color-on-surface);
+            margin: 0 0 8px 0;
+        }
+
+        #instructionText {
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 0.95rem;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        /* =========================================
+           WORD CONTAINER
+           ========================================= */
+        #slovakWord {
+            font-size: 2rem;
+            font-weight: 500;
+            background-color: rgba(208, 188, 255, 0.08);
+            color: var(--md-sys-color-primary);
+            border: 1px solid var(--md-sys-color-primary);
+            border-radius: var(--md-sys-shape-corner-full);
+            margin: 0 auto 32px auto;
+            padding: 16px 32px;
+            width: fit-content;
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* =========================================
+           INPUTS & SELECTOR
+           ========================================= */
+        #quizSelector {
+            width: 100%;
+            padding: 16px 16px;
+            font-size: 1rem;
+            border-radius: var(--md-sys-shape-corner-medium);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            background-color: var(--md-sys-color-surface-container-high); 
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 32px;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23CAC4D0" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        #quizSelector option {
+            background-color: #2B2930;
+            color: #E6E1E5;
+            padding: 12px;
+        }
+
+        #inputField {
+            padding: 16px 24px;
+            font-size: 1.1rem;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 24px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--md-sys-color-on-surface);
+            border-radius: var(--md-sys-shape-corner-full);
+            transition: all 0.2s;
+        }
+
+        #quizSelector:focus, #inputField:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            background-color: rgba(208, 188, 255, 0.05);
+        }
+        
+        #quizSelector:focus {
+            background-color: var(--md-sys-color-surface-container-high); 
+            border-color: var(--md-sys-color-primary);
+        }
+
+        /* =========================================
+           BUTTONS & ANIMATIONS (OPRAVENÉ)
+           ========================================= */
+        button {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            
+            /* Základný stav - plne oblý */
+            border-radius: 50px; 
+            
+            /* DÔLEŽITÉ: Explicitný prechod pre plynulosť */
+            transition: border-radius 0.25s ease-out, 
+                        transform 0.25s ease-out, 
+                        background-color 0.2s ease,
+                        box-shadow 0.2s ease;
+            
+            /* Aby sa tlačidlo "neklalo" pri zmene veľkosti */
+            transform-origin: center;
+            backface-visibility: hidden; 
+        }
+        
+        button:hover {
+            /* Zmena na menej oblé */
+            border-radius: 12px;
+            
+            /* Jemné zväčšenie */
+            transform: scale(1.02);
+            
+            /* Tieň pre hĺbku */
+            box-shadow: var(--md-sys-elevation-hover);
+        }
+
+        button:active { 
+            transform: scale(0.96); 
+            border-radius: 12px;
+        }
+
+        #checkButton {
+            padding: 16px;
+            font-size: 1rem;
+            color: var(--md-sys-color-on-primary);
+            background-color: var(--md-sys-color-primary);
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        #checkButton:hover { 
+            background-color: #E3DFFF; 
+        }
+
+        .button-container {
+            display: flex; justify-content: center; gap: 12px;
+        }
+
+        .secondary-button {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            color: var(--md-sys-color-secondary);
+            background-color: transparent;
+            border: 1px solid var(--md-sys-color-outline);
+        }
+        
+        .secondary-button:hover {
+             background-color: rgba(204, 194, 220, 0.1);
+             border-color: var(--md-sys-color-secondary);
+        }
+
+        #resetButton { color: var(--md-sys-color-error); border-color: var(--md-sys-color-error); }
+        #resetButton:hover { background-color: rgba(242, 184, 181, 0.1); }
+
+        /* =========================================
+           FEEDBACK STATES
+           ========================================= */
+        #message { min-height: 24px; margin-bottom: 20px; font-weight: 500; font-size: 0.95rem;}
+        .correct { color: var(--md-sys-color-success); }
+        .incorrect { color: var(--md-sys-color-error); animation: shake 0.4s ease-in-out; }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-4px);} 75% {transform: translateX(4px);} }
+
+        /* =========================================
+           MODAL
+           ========================================= */
+        .modal {
+            display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; 
+            background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: var(--md-sys-color-surface-container-high);
+            padding: 32px; border-radius: var(--md-sys-shape-corner-large);
+            width: 100%; max-width: 500px;
+            box-shadow: var(--md-sys-elevation-2);
+            color: var(--md-sys-color-on-surface);
+            animation: scaleIn 0.2s forwards ease-out;
+            max-height: 80vh; display: flex; flex-direction: column;
+        }
+        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .modal-header h2 { margin: 0; font-size: 1.4rem; }
+        
+        .modal-body {
+            display: flex; flex-direction: column; gap: 24px; overflow-y: auto;
+             scrollbar-width: thin; scrollbar-color: var(--md-sys-color-outline-variant) transparent;
+        }
+        
+        .word-list h3 { color: var(--md-sys-color-primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 12px 0;}
+        .word-list ul { list-style-type: none; padding-left: 0; margin: 0; }
+        .word-list li { 
+            padding: 10px 14px; background-color: rgba(255,255,255,0.04); 
+            border-radius: 8px; margin-bottom: 6px; font-size: 0.9rem;
+        }
+        #guessedList li { border-left: 3px solid var(--md-sys-color-success); }
+        
+        .close-button { 
+            cursor: pointer; 
+            padding: 8px; 
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Plynulá animácia pre krížik */
+            transition: border-radius 0.25s ease-out, background-color 0.2s, transform 0.3s ease;
+        }
+        
+        .close-button:hover { 
+            background-color: rgba(255,255,255,0.1); 
+            border-radius: 8px; 
+            transform: rotate(90deg);
+        }
+
+        @media (min-width: 600px) { .modal-body { flex-direction: row; } }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <select id="quizSelector"></select>
+
+        <header>
+            <span id="streakDisplay">Séria: 0</span> 
+            <h1 id="quizTitle">Názov kvízu</h1>
+            <p id="instructionText">Inštrukcie...</p>
+        </header>
+        
+        <div id="slovakWord"></div>
+        
+        <input type="text" id="inputField" placeholder="Vaša odpoveď" autofocus autocomplete="off">
+        
+        <div id="message"></div>
+
+        <button id="checkButton">Skontrolovať</button>
+        
+        <div class="button-container">
+            <button id="statusButton" class="secondary-button">Stav</button>
+            <button id="resetButton" class="secondary-button">Reset</button>
+        </div>
+    </div>
+
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                 <h2>Stav kvízu</h2>
+                 <div class="close-button"><span class="material-symbols-outlined">close</span></div>
+            </div>
+            <div class="modal-body">
+                <div id="guessedList" class="word-list"></div>
+                <div id="remainingList" class="word-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. DÁTA KVÍZOV
+        // ==========================================
+        const quizData = {
+            "slovicka1": {
+                title: "Slovíčka 1",
+                instruction: "Preložte slovo do nemčiny (pri podst.m. aj člen):",
+                words: {
+                    "horúčka": "das Fieber",
+                    "denne": "täglich",
+                    "meškanie": "die Verspätung",
+                    "sen": "der Traum",
+                    "snívať": "Träumen",
+                    "cez prázdniny":"in den Ferien",
+                    "korculovat sa na lade":"Schlittschuh fahren",
+                    "korculovat sa na kolieskovych korculiach":"Rollschuh fahren",
+                    "sankovat sa":"rodeln",
+                    "ponuka":"das Angebot",
+                    "vybrat/zvolit si":"wählen",
+                    "oblast":"das Gebiet",
+                    "milovnik":"der Liebhaber",
+                    "poloha":"die Lage",
+                    "lezenie":"klettern",
+                    "vsade":"überall",
+                    "socha":"die Statue",
+                    "volny cas":"die Freizeit",
+                    "sloboda":"die Freiheit",
+                    "dam to/stihnem to/zvladnem to!":"ich schaffe es",
+                    "zazit":"erleben",
+                    "casopis":"die Zeitschrift",
+                    "noviny":"die Zeitung",
+                    "dost":"genug",
+                    "zem/podlaha":"der Boden",
+                    "oblek":"der Anzug",
+                    "plavky (zeny)":"der Badeanzug",
+                    "plavky (muzi)":"die Badehose",
+                    "som na cestach":"ich bin unterwegs",
+                    "unaveny":"müde",
+                    "nalada":"die Laune",
+                    "naladovy":"launisch",
+                    "uz":"seit",
+                    "vystava":"die Ausstellung",
+                    "takmer":"fast",
+                    "zucastnit sa":"teilnehmen",
+                    "ozvat sa, prihlasit sa":"melden",
+                    "pristav":"der Hafen",
+                    "letisko":"der Flughafen",
+                    "podujatie, udalost":"die Veranstaltung",
+                    "doprava":"der Verkehr",
+                    "zadarmo":"kostenlos",
+                    "majstrovat":"basteln",
+                    "dielna":"die Werkstatt",
+                    "rozny":"verschieden",
+                    "sutaz":"der Wettbewerb",
+                    "konat sa":"stattfinden",
+                    "podnikat":"unternehmen",
+                    "tlaciaren":"der Drucker",
+                    "vytlacit":"ausdrucken",
+                    "zakaznik":"die Kunde",
+                    "kolotoc":"der Karussell",
+                    "ubytovanie":"die Unterkunft",
+                    "odcestovanie, odchod":"die Abfahrt",
+                    "pricestovanie, prichod":"die Ankunft",
+                    "povoleny":"erlaub",
+                    "zakazany":"verboten",
+                    "hviezda":"der Stern",
+                    "vzdialeny":"entfernt",
+                    "mozny":"möglich",
+                    "moznost":"die Möglichkeit",
+                    "tocit, natacat":"drehen",
+                    "volba,výber":"die Wahl",
+                    "pritom, popritom":"dabei",
+                    "setrit, sporit":"sparen",
+                    "hranica":"die Grenze",
+                    "prenocovat":"übernachten",
+                    "nahnevany zly":"böse"
+                }
+            },
+            "perfekt": {
+                title: "Nepravidelné slovesá (Perfektum)",
+                instruction: "Preložte formátom: 'er + hat/ist + sloveso v perfekte'",
+                words: {
+                    "piecť": "er hat gebacken",
+                    "začať": "er hat begonnen",
+                    "odbočiť": "er hat abgebogen",
+                    "ponúkať": "er hat angeboten",
+                    "prosiť": "er hat gebeten",
+                    "zostať": "er ist geblieben",
+                    "lámať": "er hat gebrochen",
+                    "odporúčať": "er hat empfohlen",
+                    "jesť": "er hat gegessen",
+                    "cestovať/jazdit": "er ist gefahren",
+                    "padať": "er ist gefallen",
+                    "páčiť sa": "er hat gefallen",
+                    "chytať": "er hat gefangen",
+                    "začať": "er hat angefangen",
+                    "nájsť/považovať": "er hat gefunden",
+                    "letieť": "er ist geflogen",
+                    "tiecť": "er ist geflossen",
+                    "žrať": "er hat gefressen",
+                    "mrznúť": "er ist gefroren",
+                    "dávať": "er hat gegeben",
+                    "ísť": "er ist gegangen",
+                    "vyhrať": "er hat gewonnen",
+                    "polievať": "er hat gegossen",
+                    "držať": "er hat gehalten",
+                    "vysieť": "er hat gehangen",
+                    "volat sa": "er hat geheissen",
+                    "pomahat": "er hat geholfen",
+                    "zniet, zvonit": "er hat geklungen",
+                    "prist": "er ist gekommen",
+                    "dostat": "er hat bekommen",
+                    "pozyvat": "er hat eingeladen",
+                    "nechat, ponechat": "er hat gelassen",
+                    "opustit": "er hat verlassen",
+                    "bezat": "er ist gelaufen",
+                    "citat": "er hat gelesen",
+                    "lezat": "er hat gelegen",
+                    "klamat": "er hat gelogen",
+                    "merat": "er hat gemessen",
+                    "vziat": "er hat genommen",
+                    "radit": "er hat geraten",
+                    "jazdit na koni": "er ist geritten",
+                    "kricat": "er hat gerufen",
+                    "zavolat": "er hat angerufen",
+                    "spať": "er hat geschlafen",
+                    "zaspať": "er ist eingeschlafen",
+                    "biť": "er hat geschlagen",
+                    "zatvorit": "er hat geschlossen",
+                    "rezat": "er hat geschnitten",
+                    "pisat": "er hat geschrieben",
+                    "plavat": "er ist geschwommen",
+                    "pozerat": "er hat gesehen",
+                    "pozerat TV": "er hat ferngesehen",
+                    "spievat": "er hat gesungen",
+                    "sediet": "er hat gesessen",
+                    "hovorit": "er hat gesprochen",
+                    "skakat": "er ist gesprungen",
+                    "stáť": "er hat gestanden",
+                    "vstávať": "er ist aufgestanden",
+                    "rozumieť": "er hat verstanden",
+                    "stúpať": "er ist gestiegen",
+                    "nastupit": "er ist eingestiegen",
+                    "vystupit": "er ist ausgestiegen",
+                    "prestupit": "er ist umgestiegen",
+                    "zomriet": "er ist gestorben",
+                    "hadat sa": "er hat gestritten",
+                    "nosit": "er hat getragen",
+                    "stretnut": "er hat getroffen",
+                    "pit": "er hat getrunken",
+                    "zabudnut": "er hat vergessen",
+                    "stratit": "er hat verloren",
+                    "rast": "er ist gewachsen",
+                    "umyvat sa": "er hat gewaschen",
+                    "hadzat": "er hat geworfen",
+                    "tahat": "er hat gezogen",
+                    "obliect sa": "er hat sich angezogen",
+                    "vyzliect sa": "er hat sich ausgezogen",
+                    "prestahovat sa": "er ist umgezogen",
+                    "prezliect sa": "er hat sich umgezogen"
+                }
+            }
+        };
+
+        // ==========================================
+        // 2. LOGIKA APLIKÁCIE
+        // ==========================================
+        
+        let currentVocabulary = {};
+        let remainingWords = [];
+        let guessedWords = [];
+        let currentWord; 
+        let currentStreak = 0;
+
+        // Elementy
+        const quizSelector = document.getElementById('quizSelector');
+        const quizTitle = document.getElementById('quizTitle');
+        const instructionText = document.getElementById('instructionText');
+        const slovakWordElement = document.getElementById('slovakWord');
+        const inputField = document.getElementById('inputField');
+        const checkButton = document.getElementById('checkButton');
+        const messageElement = document.getElementById('message');
+        const streakDisplay = document.getElementById('streakDisplay');
+        const resetButton = document.getElementById('resetButton');
+        const statusButton = document.getElementById('statusButton');
+        const statusModal = document.getElementById('statusModal');
+        const closeModal = document.getElementsByClassName('close-button')[0];
+        const guessedListElement = document.getElementById('guessedList');
+        const remainingListElement = document.getElementById('remainingList');
+
+        // Inicializácia dropdown menu
+        function initQuizSelector() {
+            for (const key in quizData) {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = quizData[key].title;
+                quizSelector.appendChild(option);
+            }
+            
+            quizSelector.addEventListener('change', (e) => {
+                loadQuiz(e.target.value);
+            });
+            
+            // Načítanie prvého kvízu
+            if (Object.keys(quizData).length > 0) {
+                loadQuiz(Object.keys(quizData)[0]);
+            }
+        }
+
+        // Načítanie konkrétneho kvízu
+        function loadQuiz(quizKey) {
+            const selectedQuiz = quizData[quizKey];
+            
+            // Nastavenie textov
+            quizTitle.textContent = selectedQuiz.title;
+            instructionText.textContent = selectedQuiz.instruction;
+            
+            // Načítanie dát
+            currentVocabulary = selectedQuiz.words;
+            
+            // Reset hry
+            resetGame();
+        }
+
+        function updateStreakDisplay() {
+            streakDisplay.textContent = `Séria: ${currentStreak}`;
+        }
+
+        function resetGame() {
+            remainingWords = Object.keys(currentVocabulary);
+            guessedWords = [];
+            currentStreak = 0;
+            updateStreakDisplay();
+            
+            inputField.style.display = 'block';
+            checkButton.style.display = 'inline-block';
+            checkButton.textContent = 'Skontrolovať';
+            
+            messageElement.textContent = '';
+            messageElement.className = ''; 
+            chooseNewWord();
+        }
+
+        function chooseNewWord() {
+            if (remainingWords.length === 0) {
+                slovakWordElement.textContent = '🎉 Hotovo!';
+                messageElement.textContent = 'Všetky slová uhádnuté! Vyberte si iný kvíz alebo resetujte.';
+                messageElement.className = 'correct';
+                inputField.style.display = 'none';
+                checkButton.style.display = 'none';
+                currentWord = null;
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * remainingWords.length);
+            currentWord = remainingWords[randomIndex];
+            
+            slovakWordElement.textContent = currentWord;
+            
+            inputField.value = '';
+            messageElement.textContent = '';
+            messageElement.className = '';
+            inputField.focus(); 
+            checkButton.textContent = 'Skontrolovať';
+            checkButton.onclick = checkAnswer; 
+        }
+
+        function checkAnswer() {
+            if (!currentWord) return; 
+
+            const correctAnswer = currentVocabulary[currentWord].trim().toLowerCase();
+            const userAnswer = inputField.value.trim().toLowerCase();
+
+            messageElement.className = '';
+            void messageElement.offsetWidth;
+
+            if (userAnswer === correctAnswer) {
+                currentStreak++; 
+                updateStreakDisplay(); 
+
+                messageElement.textContent = '✔️ Správne! Kliknite na Ďalej.';
+                messageElement.className = 'correct';
+                
+                guessedWords.push(currentWord);
+                remainingWords = remainingWords.filter(word => word !== currentWord);
+                
+                checkButton.textContent = 'Ďalej';
+                checkButton.onclick = chooseNewWord; 
+            } else {
+                currentStreak = 0; 
+                updateStreakDisplay(); 
+
+                messageElement.innerHTML = `❌ Nesprávne.<br>Správne je: <span style="font-weight: bold; color: var(--md-sys-color-primary);">${currentVocabulary[currentWord]}</span>`;
+                messageElement.className = 'incorrect';
+                
+                checkButton.textContent = 'Ďalej';
+                checkButton.onclick = chooseNewWord;
+            }
+        }
+        
+        function showStatusModal() {
+            guessedListElement.innerHTML = '<h3>Už vieš:</h3>';
+            remainingListElement.innerHTML = '<h3>Zostáva:</h3>';
+
+            const guessedUl = document.createElement('ul');
+            if (guessedWords.length > 0) {
+                guessedWords.forEach(word => {
+                    const li = document.createElement('li');
+                    li.textContent = `${word} = ${currentVocabulary[word]}`;
+                    guessedUl.appendChild(li);
+                });
+            } else {
+                guessedUl.innerHTML = '<p>Zatiaľ žiadne.</p>';
+            }
+            guessedListElement.appendChild(guessedUl);
+            
+            const remainingUl = document.createElement('ul');
+            if (remainingWords.length > 0) {
+                 remainingWords.forEach(word => {
+                    const li = document.createElement('li');
+                    li.textContent = word;
+                    remainingUl.appendChild(li);
+                });
+            } else {
+                 remainingUl.innerHTML = '<p>Všetko uhádnuté!</p>';
+            }
+            remainingListElement.appendChild(remainingUl);
+
+            statusModal.style.display = "flex"; 
+        }
+
+        function hideStatusModal() {
+            statusModal.style.display = "none";
+        }
+        
+        // Event Listeners
+        inputField.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); 
+                if (checkButton.textContent === 'Skontrolovať') {
+                    checkAnswer();
+                } else {
+                    chooseNewWord();
+                }
+            }
+        });
+        
+        resetButton.onclick = resetGame;
+        statusButton.onclick = showStatusModal;
+        closeModal.onclick = hideStatusModal;
+        window.onclick = function(event) {
+            if (event.target == statusModal) {
+                hideStatusModal();
+            }
+        }
+
+        // Spustenie
+        document.addEventListener('DOMContentLoaded', initQuizSelector);
+
+    </script>
+</body>
+</html>
